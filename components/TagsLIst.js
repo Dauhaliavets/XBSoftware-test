@@ -1,4 +1,4 @@
-import Control from './Control.js';
+import Control from './common/Control.js';
 import Tag from './Tag.js';
 
 class TagsList extends Control {
