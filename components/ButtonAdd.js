@@ -4,27 +4,26 @@ class ButtonAdd extends Control {
   constructor(parent, state){
     super(parent, 'button', 'button-add', 'Add a tag');
 
-    const addTag = (state) => {
-      const value = state.data.inputValue;
-      if (value) {
-        const newTags = [...state.data.tags, value];
-        state.data = { ...state.data, inputValue: '', tags: newTags };
-      }
-    };
-
-    this.node.addEventListener('click', () => addTag(state));
-
-    const update = (data) => {
-      if(data.mode) {
-        this.node.setAttribute("disabled", "disabled");
-      } else {
-        this.node.removeAttribute("disabled", "disabled");
-      }
-    };
-
-    state.onChange.add(update);
-    update(state.data);
+    this.node.addEventListener('click', () => this.addTag(state));
+    state.onChange.add(this.update);
+    this.update(state.data);
   }
+
+  addTag = (state) => {
+    const value = state.data.inputValue;
+    if (value) {
+      const newTags = [...state.data.tags, value];
+      state.data = { ...state.data, inputValue: '', tags: newTags };
+    }
+  };
+
+  update = (data) => {
+    if(data.mode) {
+      this.node.setAttribute("disabled", "disabled");
+    } else {
+      this.node.removeAttribute("disabled", "disabled");
+    }
+  };
 }
 
 export default ButtonAdd;
