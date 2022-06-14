@@ -5,22 +5,27 @@ class TagsList extends Control {
   constructor(parent, state) {
     super(parent, 'ul', 'tags-list');
 
-    const update = (data) => {
-      this.node.innerHTML = '';
-      data.tags.forEach((tagContent) => {
-        new Tag(this.node, tagContent, data.mode, () => this.handlerDeleteTag(state));
-      });
-    };
-
-    state.onChange.add(update);
-    update(state.data);
+    this.state = state;
+    state.onChange.add(this.update);
+    this.update(state.data);
   }
 
   handlerDeleteTag = (state) => {
-    return function(value) {
+    return function (value) {
       const newTags = state.data.tags.filter((tag) => tag !== value);
       state.data = { ...state.data, tags: newTags };
-    }
+    };
+  };
+
+  update = (data) => {
+    const { tags, mode } = data;
+    this.node.innerHTML = '';
+
+    tags.forEach((tagContent) => {
+      new Tag(this.node, tagContent, mode, () =>
+        this.handlerDeleteTag(this.state)
+      );
+    });
   };
 }
 
