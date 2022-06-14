@@ -1,16 +1,16 @@
-import Control from './common/Control.js';
-import Tag from './Tag.js';
+import { Control } from './common/Control.js';
+import { Tag } from './Tag.js';
 
 class TagsList extends Control {
   constructor(parent, state) {
     super(parent, 'ul', 'tags-list');
 
     this.state = state;
-    state.onChange.add(this.update);
+    state.onChange.addObserver(this.update);
     this.update(state.data);
   }
 
-  handlerDeleteTag = (state) => {
+  deleteTag = (state) => {
     return function (value) {
       const newTags = state.data.tags.filter((tag) => tag !== value);
       state.data = { ...state.data, tags: newTags };
@@ -21,12 +21,10 @@ class TagsList extends Control {
     const { tags, mode } = data;
     this.node.innerHTML = '';
 
-    tags.forEach((tagContent) => {
-      new Tag(this.node, tagContent, mode, () =>
-        this.handlerDeleteTag(this.state)
-      );
+    tags.forEach((tag) => {
+      new Tag(this.node, tag, mode, () => this.deleteTag(this.state));
     });
   };
 }
 
-export default TagsList;
+export { TagsList };

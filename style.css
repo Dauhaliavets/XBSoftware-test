@@ -20,7 +20,8 @@ body {
   gap: 15px;
 }
 
-.input {
+.tag-input {
+  padding: 0 5px;
   width: 67%;
   height: 30px;
 }

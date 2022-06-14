@@ -1,18 +1,17 @@
-import Control from './common/Control.js';
+import { Control } from './common/Control.js';
 
-class SwitchMode extends Control {
+class ModeButton extends Control {
   constructor(parent, state) {
     super(parent, 'input', 'checkbox-mode');
 
     this.node.setAttribute('type', 'checkbox');
     this.node.addEventListener('input', () => this.changeMode(state));
-    state.onChange.add(this.update);
+    state.onChange.addObserver(this.update);
     this.update(state.data);
   }
 
   changeMode = (state) => {
-    const newMode = !state.data.mode;
-    state.data = { ...state.data, mode: newMode };
+    state.data = { ...state.data, mode: !state.data.mode };
   };
 
   update = (data) => {
@@ -24,4 +23,4 @@ class SwitchMode extends Control {
   }
 }
 
-export default SwitchMode;
+export { ModeButton };

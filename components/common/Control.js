@@ -3,7 +3,7 @@ class Control {
     parentElement = null,
     htmlElement = 'div',
     classList = '',
-    content = '',
+    content = ''
   ) {
     const element = document.createElement(htmlElement);
     element.className = classList;
@@ -13,14 +13,6 @@ class Control {
     }
     this.node = element;
   }
-
-  destroy() {
-    this.node.remove();
-  }
-
-  init() {
-    return this.node;
-  }
 }
 
-export default Control;
+export { Control };

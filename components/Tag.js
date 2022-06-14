@@ -1,16 +1,16 @@
-import Control from './common/Control.js';
+import { Control } from './common/Control.js';
 
 class Tag extends Control {
-  constructor(parent, content, mode, handler) {
-    super(parent, 'li', 'tag-item', content);
+  constructor(parent, tag, mode, deleteHandler) {
+    super(parent, 'li', 'tag-item', tag);
 
     if (mode) {
       this.node.classList.add('tag-item_disabled');
     }
 
-    this.btnDelete = new Control(this.node, 'span', 'button-delete', 'X');
-    this.btnDelete.node.addEventListener('click', () => handler()(content));
+    this.deleteBtn = new Control(this.node, 'span', 'button-delete', 'X');
+    this.deleteBtn.node.addEventListener('click', () => deleteHandler()(tag));
   }
 }
 
-export default Tag;
+export { Tag };

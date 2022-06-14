@@ -1,9 +1,9 @@
-import Signal from './common/Signal.js';
+import { Subject } from './common/Subject.js';
 
 class AppState {
   constructor(initialState) {
     this._data = initialState;
-    this.onChange = new Signal();
+    this.onChange = new Subject();
   }
 
   get data() {
@@ -12,8 +12,8 @@ class AppState {
 
   set data(value) {
     this._data = value;
-    this.onChange.emit(this._data);
+    this.onChange.notify(this._data);
   }
 }
 
-export default AppState;
+export { AppState };

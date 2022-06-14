@@ -1,18 +1,18 @@
-import Control from "./common/Control.js";
+import { Control } from "./common/Control.js";
 
-class ButtonAdd extends Control {
+class AddButton extends Control {
   constructor(parent, state){
     super(parent, 'button', 'button-add', 'Add a tag');
 
-    this.node.addEventListener('click', () => this.addTag(state));
-    state.onChange.add(this.update);
+    this.node.addEventListener('click', () => this.addNewTag(state));
+    state.onChange.addObserver(this.update);
     this.update(state.data);
   }
 
-  addTag = (state) => {
-    const value = state.data.inputValue;
-    if (value) {
-      const newTags = [...state.data.tags, value];
+  addNewTag = (state) => {
+    const newTagContent = state.data.inputValue;
+    if (newTagContent) {
+      const newTags = [...state.data.tags, newTagContent];
       state.data = { ...state.data, inputValue: '', tags: newTags };
     }
   };
@@ -26,4 +26,4 @@ class ButtonAdd extends Control {
   };
 }
 
-export default ButtonAdd;
+export { AddButton };

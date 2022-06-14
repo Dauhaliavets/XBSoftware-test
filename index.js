@@ -1,5 +1,5 @@
-import App from './components/App.js';
-import AppState from './components/AppState.js';
+import { App } from './components/App.js';
+import { AppState } from './components/AppState.js';
 
 console.log('Hello XB Software');
 
